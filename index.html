@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2113.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Doctor Schedule&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: Arial, sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #f4f4f9;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>table {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-collapse: collapse;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>th, td {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: left;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #ddd;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>th {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #007bff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Doctor on Duty Schedule&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h3 id="currentDate"&gt;&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;table id="doctorSchedule"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;thead&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;th&gt;Date&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;th&gt;Time&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;th&gt;Doctor's Name&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;th&gt;Contact Number&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/thead&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;tbody id="scheduleBody"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- The schedule will be dynamically updated here --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/tbody&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/table&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Current Doctor on Duty&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="currentDoctor"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Current doctor on duty details will be shown here --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Sample schedule data</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const schedule = [</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ date: '2024-10-07', time: '08:00-14:00', name: 'Dr. Ahmed', contact: '0501234567' },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ date: '2024-10-07', time: '14:00-20:00', name: 'Dr. Fatima', contact: '0509876543' },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ date: '2024-10-08', time: '08:00-14:00', name: 'Dr. Ali', contact: '0507654321' },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ date: '2024-10-08', time: '14:00-20:00', name: 'Dr. Sarah', contact: '0504567890' },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Add more entries as needed</p>
+<p class="p1"><span class="Apple-converted-space">        </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Function to format the current date</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function getFormattedDate(date) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const year = date.getFullYear();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const month = ('0' + (date.getMonth() + 1)).slice(-2); // Pad with zero</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const day = ('0' + date.getDate()).slice(-2); // Pad with zero</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return `${year}-${month}-${day}`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Display schedule in the table</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function displaySchedule() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const tableBody = document.getElementById('scheduleBody');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let tableRows = '';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>schedule.forEach(entry =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>tableRows += `&lt;tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;td&gt;${entry.date}&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;td&gt;${entry.time}&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;td&gt;${entry.name}&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;td&gt;${entry.contact}&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/tr&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>tableBody.innerHTML = tableRows;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Function to find the current doctor on duty based on the current date and time</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function findCurrentDoctor() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const now = new Date();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const currentDate = getFormattedDate(now);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const currentHour = now.getHours();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const currentDoctor = schedule.find(entry =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Split the time range into start and end hours</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const [start, end] = entry.time.split('-').map(time =&gt; parseInt(time.split(':')[0]));</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return entry.date === currentDate &amp;&amp; currentHour &gt;= start &amp;&amp; currentHour &lt; end;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const doctorDiv = document.getElementById('currentDoctor');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (currentDoctor) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>doctorDiv.innerHTML = `&lt;strong&gt;Name:&lt;/strong&gt; ${currentDoctor.name}&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                       </span>&lt;strong&gt;Contact:&lt;/strong&gt; ${currentDoctor.contact}&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                       </span>&lt;strong&gt;Time:&lt;/strong&gt; ${currentDoctor.time}`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>doctorDiv.innerHTML = 'No doctor on duty at the moment.';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Display the current date</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('currentDate').textContent = 'Today: ' + new Date().toDateString();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Initial calls to display schedule and current doctor</p>
+<p class="p1"><span class="Apple-converted-space">        </span>displaySchedule();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>findCurrentDoctor();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Update the current doctor every minute</p>
+<p class="p1"><span class="Apple-converted-space">        </span>setInterval(findCurrentDoctor, 60000);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
