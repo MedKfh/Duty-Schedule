@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Schedule</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Doctor on Duty Schedule</h1>
+    <h3 id="currentDate"></h3>
+    <table id="doctorSchedule">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Doctor's Name</th>
+                <th>Contact Number</th>
+            </tr>
+        </thead>
+        <tbody id="scheduleBody">
+            <!-- The schedule will be dynamically updated here -->
+        </tbody>
+    </table>
+
+    <h2>Current Doctor on Duty</h2>
+    <div id="currentDoctor">
+        <!-- Current doctor on duty details will be shown here -->
+    </div>
+
+    <script>
+        // Sample schedule data
+        const schedule = [
+            { date: '2024-10-07', time: '08:00-14:00', name: 'Dr. Ahmed', contact: '0501234567' },
+            { date: '2024-10-07', time: '14:00-20:00', name: 'Dr. Fatima', contact: '0509876543' },
+            { date: '2024-10-08', time: '08:00-14:00', name: 'Dr. Ali', contact: '0507654321' },
+            { date: '2024-10-08', time: '14:00-20:00', name: 'Dr. Sarah', contact: '0504567890' },
+            // Add more entries as needed
+        ];
+
+        // Function to format the current date
+        function getFormattedDate(date) {
+            const year = date.getFullYear();
+            const month = ('0' + (date.getMonth() + 1)).slice(-2); // Pad with zero
+            const day = ('0' + date.getDate()).slice(-2); // Pad with zero
+            return `${year}-${month}-${day}`;
+        }
+
+        // Display schedule in the table
+        function displaySchedule() {
+            const tableBody = document.getElementById('scheduleBody');
+            let tableRows = '';
+
+            schedule.forEach(entry => {
+                tableRows += `<tr>
+                    <td>${entry.date}</td>
+                    <td>${entry.time}</td>
+                    <td>${entry.name}</td>
+                    <td>${entry.contact}</td>
+                </tr>`;
+            });
+
+            tableBody.innerHTML = tableRows;
+        }
+
+        // Function to find the current doctor on duty based on the current date and time
+        function findCurrentDoctor() {
+            const now = new Date();
+            const currentDate = getFormattedDate(now);
+            const currentHour = now.getHours();
+
+            const currentDoctor = schedule.find(entry => {
+                // Split the time range into start and end hours
+                const [start, end] = entry.time.split('-').map(time => parseInt(time.split(':')[0]));
+                return entry.date === currentDate && currentHour >= start && currentHour < end;
+            });
+
+            const doctorDiv = document.getElementById('currentDoctor');
+            if (currentDoctor) {
+                doctorDiv.innerHTML = `<strong>Name:</strong> ${currentDoctor.name}<br>
+                                       <strong>Contact:</strong> ${currentDoctor.contact}<br>
+                                       <strong>Time:</strong> ${currentDoctor.time}`;
+            } else {
+                doctorDiv.innerHTML = 'No doctor on duty at the moment.';
+            }
+        }
+
+        // Display the current date
+        document.getElementById('currentDate').textContent = 'Today: ' + new Date().toDateString();
+
+        // Initial calls to display schedule and current doctor
+        displaySchedule();
+        findCurrentDoctor();
+
+        // Update the current doctor every minute
+        setInterval(findCurrentDoctor, 60000);
+    </script>
+</body>
+</html>
